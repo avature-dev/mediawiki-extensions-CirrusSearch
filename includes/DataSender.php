@@ -188,6 +188,10 @@ class DataSender extends ElasticsearchIntermediary {
 			$bulk->addData( $data, 'update' );
 			$responseSet = $bulk->send();
 		} catch ( ResponseException $e ) {
+			$this->log->info(
+				"Elasticsearch returned error: {error}",
+				[ 'error' => var_export($e, true) ]
+			);
 			$justDocumentMissing = $this->bulkResponseExceptionIsJustDocumentMissing( $e,
 				function( $docId ) use ( $e, $indexType ) {
 					$this->log->info(
