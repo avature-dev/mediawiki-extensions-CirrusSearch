@@ -202,6 +202,8 @@ class DataSender extends ElasticsearchIntermediary {
 			);
 			if ( !$justDocumentMissing ) {
 				$exception = $e;
+			} else {
+				$responseSet = $e->getResponseSet();
 			}
 		} catch ( \Elastica\Exception\ExceptionInterface $e ) {
 			$exception = $e;
